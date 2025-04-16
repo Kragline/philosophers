@@ -70,6 +70,7 @@ int	main()
 	if (pthread_join(t2, NULL))
 		exit_on_error(data);
 	printf("%d\n", data->num);
+	free_data(data);
 
 	return (0);
 }
