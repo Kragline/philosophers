@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/14 23:45:37 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/17 22:37:46 by armarake         ###   ########.fr       */
+/*   Created: 2025/04/17 21:37:12 by armarake          #+#    #+#             */
+/*   Updated: 2025/04/17 22:39:36 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	main(int argc, char *argv[])
+void	*routine(void *arg)
 {
-	t_data			data;
-	t_philo			*philos;
-	pthread_mutex_t	*mutexes;
-
-	if (!check_input(argc, argv))
-		return (1);
-	philos = NULL;
-	mutexes = NULL;
-	if (!allocate_data(&data, argc, argv))
-		return (1);
-	if (!allocate_mutexes(&data, mutexes))
-		return (1);
-	if (!allocate_philos(&data, philos, argv))
-		return (1);
-	return (0);
+	(void)arg;
+	return (NULL);
 }

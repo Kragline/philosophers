@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/14 23:45:37 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/17 22:37:46 by armarake         ###   ########.fr       */
+/*   Created: 2025/04/17 21:19:08 by armarake          #+#    #+#             */
+/*   Updated: 2025/04/17 22:16:05 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	main(int argc, char *argv[])
+void	destroy_mutexes(t_data *data)
 {
-	t_data			data;
-	t_philo			*philos;
-	pthread_mutex_t	*mutexes;
+	int	i;
 
-	if (!check_input(argc, argv))
-		return (1);
-	philos = NULL;
-	mutexes = NULL;
-	if (!allocate_data(&data, argc, argv))
-		return (1);
-	if (!allocate_mutexes(&data, mutexes))
-		return (1);
-	if (!allocate_philos(&data, philos, argv))
-		return (1);
-	return (0);
+	i = 0;
+	while (i++ < data->number_of_philos)
+		pthread_mutex_destroy(&data->mutexes[i]);
+	pthread_mutex_destroy(&data->print_mutex);
+	free(data->mutexes);
+	data->mutexes = NULL;
+}
+
+void	destroy_philos(t_data *data)
+{
+	free(data->philos);
+	data->philos = NULL;
 }
