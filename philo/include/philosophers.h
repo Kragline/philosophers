@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 23:45:05 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/17 22:37:16 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:08:50 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				eat_count;
 	uint64_t		last_eat_time;
+	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*print_mutex;
@@ -60,7 +61,7 @@ bool		allocate_mutexes(t_data *data, pthread_mutex_t *mutexes);
 bool		allocate_philos(t_data *data, t_philo *philos, char *argv[]);
 
 //			destroy
-void		destroy_mutexes(t_data *data);
+void		destroy_all(t_data *data);
 
 //			philo
 void		*routine(void *philo);

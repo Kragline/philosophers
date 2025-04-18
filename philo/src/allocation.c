@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:23:32 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/17 22:46:17 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:10:47 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,35 @@ bool	allocate_mutexes(t_data *data, pthread_mutex_t *mutexes)
 		if (pthread_mutex_init(&mutexes[i++], NULL))
 		{
 			printf("Mutex allocation failed\n");
-			destroy_mutexes(data);
+			destroy_all(data);
 			return (false);
 		}
 	}
 	data->mutexes = mutexes;
+	return (true);
+}
+
+static bool	allocate_threads(t_data *data, t_philo *philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->number_of_philos)
+	{
+		if (pthread_create(&philos[i].thread, NULL, routine, &philos[i]))
+		{
+			printf("Thread creation failed\n");
+			destroy_all(data);
+			return (false);
+		}
+		if (pthread_join(philos[i].thread, NULL))
+		{
+			printf("Thread joining failed\n");
+			destroy_all(data);
+			return (false);
+		}
+		i++;
+	}
 	return (true);
 }
 
@@ -70,6 +94,7 @@ bool	allocate_philos(t_data *data, t_philo *philos, char *argv[])
 		philos[i].eat_count = 0;
 		philos[i].last_eat_time = current_time();
 		philos[i].left_fork = &data->mutexes[i];
+		allocate_threads(data, philos);
 		if (i == 0)
 			philos[i].right_fork = &data->mutexes[data->number_of_philos - 1];
 		else
