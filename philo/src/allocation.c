@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:23:32 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/19 17:54:18 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:27:06 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static bool	allocate_philos(t_data *data, char *argv[])
 		data->philos[i].last_eat_time = current_time();
 		data->philos[i].left_fork = &data->mutexes[i];
 		philo_forks(data, i);
-		data->philos[i].print_mutex = &data->print_mutex;
 		data->philos[i].change_val_mutex = &data->change_val_mutex;
 		i++;
 	}
@@ -99,11 +98,6 @@ bool	allocate_data(t_data *data, int argc, char *argv[])
 	else
 		data->number_of_times_each_philo_must_eat = -1;
 	data->start_time = current_time();
-	if (pthread_mutex_init(&data->print_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
 	if (pthread_mutex_init(&data->change_val_mutex, NULL))
 	{
 		printf("Mutex allocation failed\n");

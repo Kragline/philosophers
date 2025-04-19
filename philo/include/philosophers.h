@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 23:45:05 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/19 17:33:20 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:26:45 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*change_val_mutex;
 }	t_philo;
 
@@ -45,7 +44,6 @@ typedef struct s_data
 	uint64_t		start_time;
 	t_philo			*philos;
 	pthread_mutex_t	*mutexes;
-	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	change_val_mutex;
 }	t_data;
 

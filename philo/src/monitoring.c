@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:16:24 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/19 17:42:02 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:28:46 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@ bool	monitoring(t_data *data)
 		while (i < data->num_of_philos)
 		{
 			if (is_dead(&data->philos[i]))
-				return (die_msg(&data->philos[i]), destroy_all(data), false);
+			{
+				break ;
+				printf("%ld %d died\n", current_time(), data->philos[i].index);
+				destroy_all(data);
+				return (false);
+			}
 			i++;
 		}
 	}

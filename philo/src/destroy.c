@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:19:08 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/19 17:33:03 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:26:51 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	destroy_mutexes(t_data *data)
 	i = 0;
 	while (i < data->num_of_philos)
 		pthread_mutex_destroy(&data->mutexes[i++]);
-	pthread_mutex_destroy(&data->print_mutex);
 	pthread_mutex_destroy(&data->change_val_mutex);
 	free(data->mutexes);
 	data->mutexes = NULL;
