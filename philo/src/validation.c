@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 13:34:26 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/19 14:31:27 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/20 01:15:54 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	wrong_number_of_arguments(void)
 {
 	printf("Wrong number of arguments\n");
 	printf("\033[0;37m");
-	printf("Use ./philo --help to see right usage\n");
+	printf("Use \033[0;32m./philo --help\033[0;37m to see right usage\n");
 }
 
 bool	check_input(int argc, char *argv[])

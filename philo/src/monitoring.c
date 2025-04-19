@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:16:24 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/19 18:28:46 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/20 01:06:48 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ bool	monitoring(t_data *data)
 		{
 			if (is_dead(&data->philos[i]))
 			{
-				break ;
+				pthread_mutex_lock(data->philos[i].print_mutex);
 				printf("%ld %d died\n", current_time(), data->philos[i].index);
+				pthread_mutex_unlock(data->philos[i].print_mutex);
 				destroy_all(data);
 				return (false);
 			}
