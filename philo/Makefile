@@ -7,7 +7,7 @@ HEADER_DIR = include/
 SRC_DIR = src/
 OBJS_DIR = objs/
 
-FILENAMES = main utils validation allocation destroy philo
+FILENAMES = main utils validation allocation destroy philo monitoring
 SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILENAMES)))
 OBJS = $(addsuffix .o, $(addprefix $(OBJS_DIR), $(FILENAMES)))
 
