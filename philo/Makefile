@@ -11,7 +11,8 @@ GREEN = \033[1;32m
 PURPLE = \033[1;35m
 WHITE = \033[0;37m
 
-FILENAMES = main utils validation allocation destroy philo monitoring
+FILENAMES = main utils validation allocation destroy philo monitoring \
+			allocation_utils philo_utils
 SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILENAMES)))
 OBJS = $(addsuffix .o, $(addprefix $(OBJS_DIR), $(FILENAMES)))
 

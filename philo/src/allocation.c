@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:23:32 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 22:59:01 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/20 23:38:38 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,6 @@ static bool	allocate_threads(t_data *data)
 	return (true);
 }
 
-static void	philo_mutexes(t_data *data, int i)
-{
-	data->philos[i].left_fork = &data->mutexes[i];
-	if (i == 0)
-		data->philos[i].right_fork = &data->mutexes[data->num_of_philos - 1];
-	else
-		data->philos[i].right_fork = &data->mutexes[i - 1];
-	data->philos[i].print_mutex = &data->print_mutex;
-	data->philos[i].last_eat_mutex = &data->last_eat_mutex;
-	data->philos[i].someone_died_mutex = &data->someone_died_mutex;
-	data->philos[i].eat_count_mutex = &data->eat_count_mutex;
-}
-
 static bool	allocate_philos(t_data *data, char *argv[])
 {
 	int	i;
@@ -87,7 +74,7 @@ static bool	allocate_philos(t_data *data, char *argv[])
 		data->philos[i].eat_count = 0;
 		data->philos[i].last_eat_time = current_time();
 		data->philos[i].data = data;
-		philo_mutexes(data, i);
+		allocate_philo_mutexes(data, i);
 		i++;
 	}
 	allocate_threads(data);
@@ -105,26 +92,8 @@ bool	allocate_data(t_data *data, int argc, char *argv[])
 		data->number_to_eat = -1;
 	data->start_time = current_time();
 	data->someone_dead = false;
-	if (pthread_mutex_init(&data->eat_count_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
+	if (!allocate_data_mutexes(data))
 		return (false);
-	}
-	if (pthread_mutex_init(&data->last_eat_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
-	if (pthread_mutex_init(&data->someone_died_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
-	if (pthread_mutex_init(&data->print_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
 	if (!allocate_mutexes(data))
 		return (false);
 	if (!allocate_philos(data, argv))

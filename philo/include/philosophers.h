@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 23:45:05 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 22:43:12 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/20 23:45:59 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ bool		check_input(int argc, char *argv[]);
 
 //				allocation
 bool		allocate_data(t_data *philo, int argc, char *argv[]);
+bool		allocate_data_mutexes(t_data *data);
+void		allocate_philo_mutexes(t_data *data, int i);
 
 //				monitoring
 void		monitoring(t_data *data);
@@ -77,5 +79,7 @@ void		destroy_all(t_data *data);
 
 //				philo
 void		*routine(void *philo);
+void		print_action(t_philo *philo, char *msg);
+bool		stop_loop(t_philo *philo);
 
 #endif
