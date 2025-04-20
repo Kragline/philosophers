@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:23:18 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/19 17:41:04 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:56:42 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,15 @@ bool	join_threads(t_data *data)
 	int	i;
 
 	i = 0;
-	if (pthread_join(data->philos[i].thread, NULL))
+	while (i < data->num_of_philos)
 	{
-		printf("Thread joining failed\n");
-		destroy_all(data);
-		return (false);
+		if (pthread_join(data->philos[i].thread, NULL))
+		{
+			printf("Thread joining failed\n");
+			destroy_all(data);
+			return (false);
+		}
+		i++;
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 23:45:05 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 00:48:37 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:43:12 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,24 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*print_mutex;
-	pthread_mutex_t	*change_val_mutex;
+	pthread_mutex_t	*last_eat_mutex;
+	pthread_mutex_t	*someone_died_mutex;
+	pthread_mutex_t	*eat_count_mutex;
+	struct s_data	*data;
 }	t_philo;
 
 typedef struct s_data
 {
 	int				num_of_philos;
-	int				number_of_times_each_philo_must_eat;
+	int				number_to_eat;
+	bool			someone_dead;
 	uint64_t		start_time;
 	t_philo			*philos;
 	pthread_mutex_t	*mutexes;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	change_val_mutex;
+	pthread_mutex_t	last_eat_mutex;
+	pthread_mutex_t	someone_died_mutex;
+	pthread_mutex_t	eat_count_mutex;
 }	t_data;
 
 //				utils
@@ -64,13 +70,12 @@ bool		check_input(int argc, char *argv[]);
 bool		allocate_data(t_data *philo, int argc, char *argv[]);
 
 //				monitoring
-bool		monitoring(t_data *data);
+void		monitoring(t_data *data);
 
 //				destroy
 void		destroy_all(t_data *data);
 
 //				philo
 void		*routine(void *philo);
-void		die_msg(t_philo *philo);
 
 #endif
