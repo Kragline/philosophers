@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 23:39:56 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 23:46:15 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/21 00:13:25 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	print_action(t_philo *philo, char *msg)
 
 	timesnap = current_time() - philo->data->start_time;
 	pthread_mutex_lock(philo->print_mutex);
-	printf("%ld %d %s\n", timesnap, philo->index, msg);
+	if (!stop_loop(philo))
+		printf("%ld %d %s\n", timesnap, philo->index, msg);
 	pthread_mutex_unlock(philo->print_mutex);
 }
 
