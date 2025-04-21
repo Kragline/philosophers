@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:37:12 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 23:45:34 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:10:29 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 static void	pick_up_forks(t_philo *philo)
 {
-	if (philo->index != 0)
-	{
+	// if (philo->index != 0)
+	// {
 		pthread_mutex_lock(philo->right_fork);
 		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
 		print_action(philo, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->left_fork);
-		print_action(philo, "has taken a fork");
-		pthread_mutex_lock(philo->right_fork);
-		print_action(philo, "has taken a fork");
-	}
+	// }
+	// else
+	// {
+	// 	pthread_mutex_lock(philo->left_fork);
+	// 	print_action(philo, "has taken a fork");
+	// 	pthread_mutex_lock(philo->right_fork);
+	// 	print_action(philo, "has taken a fork");
+	// }
 }
 
 static void	put_down_forks(t_philo *philo)
 {
-	if (philo->index != 0)
-	{
+	// if (philo->index != 0)
+	// {
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-	}
+	// }
+	// else
+	// {
+	// 	pthread_mutex_unlock(philo->right_fork);
+	// 	pthread_mutex_unlock(philo->left_fork);
+	// }
 }
 
 static void	eat(t_philo *philo)
