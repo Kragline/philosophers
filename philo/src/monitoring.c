@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:16:24 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/21 17:14:11 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:21:53 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static bool	someone_died(t_data *data)
 		if (current_time() - data->philos[i].last_eat_time
 			> (uint64_t)data->philos[i].time_to_die)
 		{
-			pthread_mutex_lock(data->philos[i].print_mutex);
-			printf("%ld %d died\n", current_time() - data-> start_time,
-				data->philos[i].index + 1);
-			pthread_mutex_unlock(data->philos[i].print_mutex);
+			print_action(&data->philos[i], "died");
 			pthread_mutex_lock(data->philos[i].someone_died_mutex);
 			data->someone_dead = true;
 			pthread_mutex_unlock(data->philos[i].someone_died_mutex);
@@ -46,20 +43,24 @@ static bool	finished_eating(t_data *data)
 
 	i = 0;
 	finished_count = 0;
-	if (data->num_of_philos == -1)
+	if (data->number_to_eat == -1)
 		return (false);
-	while (i < data->number_to_eat)
+	while (i < data->num_of_philos)
 	{
 		pthread_mutex_lock(data->philos[i].eat_count_mutex);
 		if (data->philos[i].eat_count >= data->number_to_eat)
 			finished_count++;
-		pthread_mutex_lock(data->philos[i].print_mutex);
-		printf("%d %d %d\n", finished_count, data->number_to_eat, data->philos[i].eat_count);
-		pthread_mutex_unlock(data->philos[i].print_mutex);
 		pthread_mutex_unlock(data->philos[i].eat_count_mutex);
 		i++;
 	}
-	return (finished_count == data->num_of_philos);
+	if (finished_count >= data->num_of_philos)
+	{
+		pthread_mutex_lock(&data->someone_died_mutex);
+		data->someone_dead = true;
+		pthread_mutex_unlock(&data->someone_died_mutex);
+		return (true);
+	}
+	return (false);
 }
 
 void	monitoring(t_data *data)
