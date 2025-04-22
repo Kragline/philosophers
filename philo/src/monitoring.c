@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:16:24 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/21 21:21:53 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:22:01 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void	monitoring(t_data *data)
 			return ;
 		if (someone_died(data))
 			return ;
+		usleep(1000);
 	}
 }
