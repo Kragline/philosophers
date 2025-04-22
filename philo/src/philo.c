@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:37:12 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/21 21:57:41 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:34:49 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	pick_up_forks(t_philo *philo)
 {
-	if (philo->index % 2 == 0)
+	if (philo->index % 2 != 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		print_action(philo, "has taken a fork");
@@ -79,7 +79,7 @@ void	*routine(void *arg)
 		return (NULL);
 	}
 	if (philo->index % 2 != 0)
-		ft_usleep(1);
+		ft_usleep(philo->time_to_eat / 2);
 	while (true)
 	{
 		if (stop_loop(philo))
