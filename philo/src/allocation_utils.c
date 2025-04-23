@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 23:35:43 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/23 19:16:27 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/24 00:43:08 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,15 @@
 bool	allocate_data_mutexes(t_data *data)
 {
 	if (pthread_mutex_init(&data->eat_count_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
+		return (printf("Mutex allocation failed\n"), false);
 	if (pthread_mutex_init(&data->last_eat_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
+		return (printf("Mutex allocation failed\n"), false);
 	if (pthread_mutex_init(&data->stop_program_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
+		return (printf("Mutex allocation failed\n"), false);
 	if (pthread_mutex_init(&data->print_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
+		return (printf("Mutex allocation failed\n"), false);
 	if (pthread_mutex_init(&data->is_ready_mutex, NULL))
-	{
-		printf("Mutex allocation failed\n");
-		return (false);
-	}
+		return (printf("Mutex allocation failed\n"), false);
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 23:45:05 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/23 19:19:04 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/24 00:37:11 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool		allocate_threads(t_data *data);
 bool		start_simulation(t_data *data);
 
 //				monitoring
-void		*monitoring(void *arg);
+void		*monitoring_loop(void *arg);
 
 //				destroy
 void		destroy_all(t_data *data);

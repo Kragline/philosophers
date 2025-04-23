@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:16:24 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/23 19:44:30 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/24 00:43:48 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,16 @@ static bool	finished_eating(t_data *data)
 	return (false);
 }
 
-void	*monitoring(void *arg)
+void	*monitoring_loop(void *arg)
 {
-	t_data*	data;
+	t_data	*data;
 
 	data = (t_data *)arg;
 	wait_for_philos(data);
-	pthread_mutex_lock(&data->print_mutex);
-	printf("here\n\n");
-	pthread_mutex_unlock(&data->print_mutex);
-	while (true) // cant enter the loop
+	while (true)
 	{
 		if (finished_eating(data) || someone_died(data))
 			return (NULL);
-		// usleep(data->num_of_philos * 1000);
 	}
 	return (NULL);
 }
