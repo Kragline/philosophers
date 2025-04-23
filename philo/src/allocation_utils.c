@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 23:35:43 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 23:38:50 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:16:46 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	allocate_data_mutexes(t_data *data)
 		printf("Mutex allocation failed\n");
 		return (false);
 	}
-	if (pthread_mutex_init(&data->someone_died_mutex, NULL))
+	if (pthread_mutex_init(&data->stop_program_mutex, NULL))
 	{
 		printf("Mutex allocation failed\n");
 		return (false);
@@ -46,6 +46,6 @@ void	allocate_philo_mutexes(t_data *data, int i)
 		data->philos[i].right_fork = &data->mutexes[i - 1];
 	data->philos[i].print_mutex = &data->print_mutex;
 	data->philos[i].last_eat_mutex = &data->last_eat_mutex;
-	data->philos[i].someone_died_mutex = &data->someone_died_mutex;
+	data->philos[i].stop_program_mutex = &data->stop_program_mutex;
 	data->philos[i].eat_count_mutex = &data->eat_count_mutex;
 }

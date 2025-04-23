@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:23:32 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 23:38:38 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:15:08 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static bool	allocate_philos(t_data *data, char *argv[])
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		data->philos[i].index = i;
+		data->philos[i].index = i + 1;
 		data->philos[i].num_of_philos = ft_atoi(argv[1]);
 		data->philos[i].time_to_die = ft_atoi(argv[2]);
 		data->philos[i].time_to_eat = ft_atoi(argv[3]);
@@ -91,7 +91,7 @@ bool	allocate_data(t_data *data, int argc, char *argv[])
 	else
 		data->number_to_eat = -1;
 	data->start_time = current_time();
-	data->someone_dead = false;
+	data->stop_program = false;
 	if (!allocate_data_mutexes(data))
 		return (false);
 	if (!allocate_mutexes(data))

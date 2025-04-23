@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 23:45:05 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 23:45:59 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:16:46 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*last_eat_mutex;
-	pthread_mutex_t	*someone_died_mutex;
+	pthread_mutex_t	*stop_program_mutex;
 	pthread_mutex_t	*eat_count_mutex;
 	struct s_data	*data;
 }	t_philo;
@@ -46,13 +46,13 @@ typedef struct s_data
 {
 	int				num_of_philos;
 	int				number_to_eat;
-	bool			someone_dead;
+	bool			stop_program;
 	uint64_t		start_time;
 	t_philo			*philos;
 	pthread_mutex_t	*mutexes;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	last_eat_mutex;
-	pthread_mutex_t	someone_died_mutex;
+	pthread_mutex_t	stop_program_mutex;
 	pthread_mutex_t	eat_count_mutex;
 }	t_data;
 

@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:16:24 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/22 17:22:01 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:16:46 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static bool	someone_died(t_data *data)
 			> (uint64_t)data->philos[i].time_to_die)
 		{
 			print_action(&data->philos[i], "died");
-			pthread_mutex_lock(data->philos[i].someone_died_mutex);
-			data->someone_dead = true;
-			pthread_mutex_unlock(data->philos[i].someone_died_mutex);
+			pthread_mutex_lock(data->philos[i].stop_program_mutex);
+			data->stop_program = true;
+			pthread_mutex_unlock(data->philos[i].stop_program_mutex);
 			pthread_mutex_unlock(data->philos[i].last_eat_mutex);
 			return (true);
 		}
@@ -55,9 +55,9 @@ static bool	finished_eating(t_data *data)
 	}
 	if (finished_count >= data->num_of_philos)
 	{
-		pthread_mutex_lock(&data->someone_died_mutex);
-		data->someone_dead = true;
-		pthread_mutex_unlock(&data->someone_died_mutex);
+		pthread_mutex_lock(&data->stop_program_mutex);
+		data->stop_program = true;
+		pthread_mutex_unlock(&data->stop_program_mutex);
 		return (true);
 	}
 	return (false);
@@ -67,10 +67,8 @@ void	monitoring(t_data *data)
 {
 	while (true)
 	{
-		if (finished_eating(data))
+		if (finished_eating(data) || someone_died(data))
 			return ;
-		if (someone_died(data))
-			return ;
-		usleep(1000);
+		usleep(data->num_of_philos * 1000);
 	}
 }
