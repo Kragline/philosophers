@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:37:12 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/22 14:34:49 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:36:09 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	wait_for_philos(philo->data);
+	printf("finished\n\n");
 	if (philo->num_of_philos == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);

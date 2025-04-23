@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 14:23:32 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/23 16:15:08 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:47:52 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	allocate_mutexes(t_data *data)
 	return (true);
 }
 
-static bool	allocate_threads(t_data *data)
+bool	allocate_threads(t_data *data)
 {
 	int	i;
 
@@ -72,12 +72,11 @@ static bool	allocate_philos(t_data *data, char *argv[])
 		data->philos[i].time_to_eat = ft_atoi(argv[3]);
 		data->philos[i].time_to_sleep = ft_atoi(argv[4]);
 		data->philos[i].eat_count = 0;
-		data->philos[i].last_eat_time = current_time();
 		data->philos[i].data = data;
 		allocate_philo_mutexes(data, i);
+		data->philos[i].last_eat_time = current_time();
 		i++;
 	}
-	allocate_threads(data);
 	return (true);
 }
 
@@ -90,7 +89,7 @@ bool	allocate_data(t_data *data, int argc, char *argv[])
 		data->number_to_eat = ft_atoi(argv[5]);
 	else
 		data->number_to_eat = -1;
-	data->start_time = current_time();
+	data->is_ready = false;
 	data->stop_program = false;
 	if (!allocate_data_mutexes(data))
 		return (false);

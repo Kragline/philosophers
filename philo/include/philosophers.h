@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 23:45:05 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/23 16:16:46 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:19:04 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*is_ready_mutex;
 	pthread_mutex_t	*last_eat_mutex;
 	pthread_mutex_t	*stop_program_mutex;
 	pthread_mutex_t	*eat_count_mutex;
@@ -46,10 +47,13 @@ typedef struct s_data
 {
 	int				num_of_philos;
 	int				number_to_eat;
+	bool			is_ready;
 	bool			stop_program;
 	uint64_t		start_time;
 	t_philo			*philos;
+	pthread_t		monitor;
 	pthread_mutex_t	*mutexes;
+	pthread_mutex_t	is_ready_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	last_eat_mutex;
 	pthread_mutex_t	stop_program_mutex;
@@ -70,9 +74,13 @@ bool		check_input(int argc, char *argv[]);
 bool		allocate_data(t_data *philo, int argc, char *argv[]);
 bool		allocate_data_mutexes(t_data *data);
 void		allocate_philo_mutexes(t_data *data, int i);
+bool		allocate_threads(t_data *data);
+
+//				simulation
+bool		start_simulation(t_data *data);
 
 //				monitoring
-void		monitoring(t_data *data);
+void		*monitoring(void *arg);
 
 //				destroy
 void		destroy_all(t_data *data);
@@ -81,5 +89,6 @@ void		destroy_all(t_data *data);
 void		*routine(void *philo);
 void		print_action(t_philo *philo, char *msg);
 bool		stop_loop(t_philo *philo);
+void		wait_for_philos(t_data *data);
 
 #endif

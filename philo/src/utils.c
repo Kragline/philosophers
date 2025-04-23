@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:23:18 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/20 22:56:42 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:04:23 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ bool	join_threads(t_data *data)
 			return (false);
 		}
 		i++;
+	}
+	if (pthread_join(data->monitor, NULL))
+	{
+		printf("Thread joining failed\n");
+		destroy_all(data);
+		return (false);
 	}
 	return (true);
 }

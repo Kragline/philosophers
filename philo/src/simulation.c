@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/14 23:45:37 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/23 18:39:08 by armarake         ###   ########.fr       */
+/*   Created: 2025/04/23 17:45:41 by armarake          #+#    #+#             */
+/*   Updated: 2025/04/23 19:39:32 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	main(int argc, char *argv[])
+bool	start_simulation(t_data *data)
 {
-	t_data			data;
-
-	if (!check_input(argc, argv))
-		return (1);
-	if (!allocate_data(&data, argc, argv))
-		return (1);
-	if (!start_simulation(&data))
-		return (1);
-	destroy_all(&data);
-	return (0);
+	allocate_threads(data);
+	data->start_time = current_time();
+	pthread_mutex_lock(&data->is_ready_mutex);
+	data->is_ready = true;
+	pthread_mutex_unlock(&data->is_ready_mutex);
+	if (pthread_create(&data->monitor, NULL,
+		monitoring, &data))
+	{
+		printf("Thread creation failed\n");
+		destroy_all(data);
+		return (false);
+	}
+	join_threads(data);
+	return (true);
 }
