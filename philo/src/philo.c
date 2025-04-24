@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:37:12 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/24 00:27:57 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:12:03 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ static void	put_down_forks(t_philo *philo)
 static void	eat(t_philo *philo)
 {
 	pick_up_forks(philo);
-	print_action(philo, "is eating");
 	pthread_mutex_lock(philo->last_eat_mutex);
 	philo->last_eat_time = current_time();
 	pthread_mutex_unlock(philo->last_eat_mutex);
-	ft_usleep(philo->time_to_eat);
-	put_down_forks(philo);
 	pthread_mutex_lock(philo->eat_count_mutex);
 	philo->eat_count++;
 	pthread_mutex_unlock(philo->eat_count_mutex);
+	print_action(philo, "is eating");
+	ft_usleep(philo->time_to_eat);
+	put_down_forks(philo);
 }
 
 static void	sleep_and_think(t_philo *philo)
