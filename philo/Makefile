@@ -8,6 +8,7 @@ SRC_DIR = src/
 OBJS_DIR = objs/
 
 GREEN = \033[1;32m
+BLUE = \033[0;34m
 PURPLE = \033[1;35m
 WHITE = \033[0;37m
 
@@ -18,17 +19,16 @@ OBJS = $(addsuffix .o, $(addprefix $(OBJS_DIR), $(FILENAMES)))
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(HEADER_DIR)philosophers.h $(SRCS)
-	@echo "Making objects directory..."
-	@sleep 0.2
-	@echo "Making object files..."
-	@sleep 0.2
-	@echo "Compiling executable..."
+$(NAME): $(OBJS) $(HEADER_DIR)philosophers.h
+	@echo -n "$(WHITE)"
+	@echo "Compiling final executable..."
 	@$(CC) $(CCFLAGS) -I$(HEADER_DIR) $(SRCS) -o $(NAME)
 	@echo "$(GREEN)Done!"
 
 $(OBJS_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
+	@echo -n "$(BLUE)"
+	@echo "Compiling $@"
 	@$(CC) -c $(CCFLAGS) -I$(HEADER_DIR) $< -o $@
 
 clean:
