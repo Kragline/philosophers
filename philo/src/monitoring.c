@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:16:24 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/24 00:43:48 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:59:48 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ void	*monitoring_loop(void *arg)
 	wait_for_philos(data);
 	while (true)
 	{
-		if (finished_eating(data) || someone_died(data))
+		if (someone_died(data) || finished_eating(data))
 			return (NULL);
+		usleep(data->num_of_philos * 1000);
 	}
 	return (NULL);
 }
